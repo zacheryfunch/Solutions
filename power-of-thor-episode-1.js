@@ -50,9 +50,9 @@ while (true) {
     const remainingTurns = parseInt(readline()); // The remaining amount of turns Thor can move. Do not remove this line. =Energy
 
     let MoveX="";    let MoveY="";  //Our answer goes here, so we can combine it.
-    const testE = ((lightX > ThorX) && ThorX <= 37);
+    const testE = ((lightX > ThorX) && ThorX <= 40);
     const testW = ((lightX < ThorX) && ThorX >0);
-    const testS = ((lightY > ThorY) && ThorY <= 10);
+    const testS = ((lightY > ThorY) && ThorY <= 18);
     const testN = ((lightY < ThorY) && ThorY >= 0);
      if (remainingTurns > 0) {
         if  (testE)                        {ThorX++; MoveX="E";}
@@ -67,7 +67,7 @@ while (true) {
     // To debug: console.error('Debug messages...');
     // A single line providing the move to be made: N NE E SE S SW W or NW
     console.error( `Thor's Position: (X:${ThorX}, Y:${ThorY})` +" Direction: " + MoveY+MoveX+ " Energy:" + remainingTurns)
-    console.error("Conditionals: E/+X?:" + testE +" W/-X?:"+ testW + " S/+Y?:" + testS+ "SLimit:" + testSs + " N/-Y?:" + testN);
+    console.error("Conditionals: E/+X?:" + testE +" W/-X?:"+ testW + " S/+Y?:" + testS+ " N/-Y?:" + testN);
     console.error(`Inputs: (initialTx: ${initialTx}, initialTy: ${initialTy}), Light: (lightX ${lightX}, lightY ${lightY})`);
     console.error(`Raw input: ${inputs}`);
 }
@@ -185,5 +185,14 @@ Game information:
 Expected a movement (one of N, NE, E, SE, S, SW, W, NW) but found ''
 Thor position = (0,11). Light position = (0,17). Energy = 13
 >Thor's position is the same in Error and in output so that works. He redirects so that's good too. Now we have a new problem.
+>All Conditionals are showing false which might be because i was to safe on my boundary limits. I will try to adjust those and try again.
+>line 53 and 55 it was 'ThorX <= 37' 'ThorY <= 10' whereas the constraints say the field stops at 40 and 18. let's try 40 and 18.
+**/
+/**
+
+>>Changing the limits on ThorX and ThorY on line 53 and 55 did it. Case 3 solved with new limits. Case 4 works too.
+>>This puzzle is complete. 13 May 2025 at 22:30
+>>I will leave these comments to show the progress I'm making and how I attack problem solving. without cleaning up the code.
+>>May this be a recording of how i used to code and write, also how i used to use comments
 
 **/
