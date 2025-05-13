@@ -60,3 +60,78 @@ while (true) {
     console.error(`Inputs: (initialTx: ${initialTx}, initialTy: ${initialTy}), Light: (lightX ${lightX}, lightY ${lightY})`);
     console.error(`Raw input: ${inputs}`);
 }
+
+
+
+/**Failure Analysis:
+Case1
+    Thor position = (5, 4).
+    Light position = (31, 4).
+    Energy = 100
+-->Result: Pass
+Thor's Position: (X:31, Y:4) Direction: E Energy:75
+Conditionals: E/+X?:true W/-X?:false S/-Y?:false SLimit:true N/+Y?:false
+
+Case2 
+      Thor position =     (31,17). 
+      Light position =    (31,4). Energy = 13
+-->Result: Pass
+Thor's Position: (X:31, Y:30) Direction: N Energy:1
+Conditionals: E/+X?:false W/-X?:false S/-Y?:falseSLimit:false N/+Y?:true
+
+Case3 Thor position =     (31,4). 
+      Light position =    (0,17). Energy = 44
+-->Result:Fail 
+Thor's Position: (X:17, Y:-10) Direction: SW Energy:31
+Conditionals: E/+X?:false W/-X?:true S/-Y?:trueSLimit:true N/+Y?:false
+
+Standard Output Stream:
+SW
+Game information:
+Failure: Thor wandered off the path and died (invalid position).
+Thor position = (17,18). Light position = (0,17). Energy = 31
+?--> My position variable does not line up with the output streams position : 17,18 vs my x17 y-10 => Fixing this might solve the problem.
+  on case 1 my variable says thor finished at 31, 4 the light at 31,4 so that's good .
+  on case 2 mine says 31,30 and the light at 31,4 => Clearly there is a problem with how my variable counts.
+
+  Thor position = (17,18). Direction SW Tests: E:False W:True S:True N:False  Energy = 31
+?--> Position y=18  => add limits x<0 x>40-1 y<0 y>18-1        
+?--> Add usecase for ThorX=lightX -> Not necessarily otherwise Case 1 and 2 would have failed
+
+Case4 Thor position = (0,0). Light position = (36,17). Energy = 36
+Case4 Fail point -> Thor position = (18,18). Direction SE Tests: E:True W:False S:True N:False  Energy = 19
+*/
+
+
+/**  Thinking about the problem again
+
+
+
+Constraints
+0 ≤ lightX < 40
+0 ≤ lightY < 18
+0 ≤ initialTX < 40
+0 ≤ initialTY < 18
+Response time for a game round ≤ 100ms
+
+0,0         31,0 max coordinates recorded in test cases
+------------> +x    E
+|
+|
+\/+y S
+0,17            31,17
+
+thorX = initialTX
+thorY = initialTY
+Therefore: 
+
+if thorX > lightX   -> go -x    W
+else if thorX < lightX -> go +x     E
+else if thorX = lightX -> 0
+
+if thorY > lightY   -> go -y    N   
+else if thorY < lightY -> go +y     S
+else if thorY = lightY -> 0
+
+console.log ( Y+X ) //NE
+*/
