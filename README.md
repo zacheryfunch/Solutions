@@ -11,9 +11,12 @@ In this reposority you will find my working solutions for puzzles on different p
 > **Info:** 
 
 ## Completed Puzzles
-| No. | Puzzle Name                                                                                                                       | State                        | Difficulty | Languages                                                                                                                                                                                                                                                                                                                                                                                                  |
-|-----|-----------------------------------------------------------------------------------------------------------------------------------|------------------------------|------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| 1   | [Power of Thor - Episode 1](https://www.codingame.com/ide/puzzle/power-of-thor-episode-1)                                                                        | :x:  In Progress            | Easy    |    [Javascript](https://github.com/zacheryfunch/Solutions/blob/main/power-of-thor-episode-1.js),                                                                                                                                                       
+| No. | Puzzle Name                                                                                    | State                         | Difficulty | My version               |
+|-----|------------------------------------------------------------------------------------------------|-------------------------------|------------|--------------------------|
+| 1   | [Power of Thor - Episode 1](https://www.codingame.com/ide/puzzle/power-of-thor-episode-1)      | :heavy_check_mark: Completed  | Easy       |    [Javascript](https://github.com/zacheryfunch/Solutions/blob/main/power-of-thor-episode-1.js), |
+| 2   | ?                    |   :x:  In Progress     :?: Stuck  :heavy_check_mark: Completed    |difficulty | local file link |    
+| 0   | Puzzle Name |   :x:  In Progress     :?: Stuck  :heavy_check_mark: Completed    |Easy Medium Hard | local file link |                                    
+
 
 ## Disclaimer
 I developed all the solutions here for personal use. Any resemblance to other solutions is purely coincidental and unintentional.
