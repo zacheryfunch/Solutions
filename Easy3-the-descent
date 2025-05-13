@@ -1,23 +1,17 @@
-
 // game loop
 while (true) {
-    let tallestMountain = 0 ;
-    let currentMountain = 0 ;
-    let target = 0
-
+    let tallestMountain = ""  ;                 //Reseting Max Value        before next Scan pass
+    let target = ""                             //Reseting Target Location  before next Scan pass
     for (let i = 0; i < 8; i++) {
-        let mountainH = parseInt(readline()); // represents the height of one mountain.
-        
+        let mountainH = parseInt(readline());   //Represents the height of one mountain at location (i).
+        console.error(" ChangeTarget?: + " + (mountainH>tallestMountain) )     //Comparing target before changing it
         if (mountainH>tallestMountain)
             {tallestMountain = mountainH; target = i};
-        console.log(target);    
-        console.error("mH:"+ mountainH + ", tallest:"+ tallestMountain +", current:"+ currentMountain+ ", input:" +", i: "+ i + ", target: "+ target);
-        console.error(" Tests: KeepT: "+ (mountainH<currentMountain) + "ChangeT:  " + (mountainH>currentMountain))
+  
+        console.error(" ScanningSpot(i): @ " + i + "-> mHeight:"+ mountainH + " > Max:"+ tallestMountain + "? -> target: "+ target); //displays on each scan pass
         console.error(" ")
-    } tallestMountain = 0 ;
-    
+    }   console.log(target); //Firing on current tallestMountain's Location (i)  
 }
-
 
 
 
@@ -43,5 +37,8 @@ Why does the value not update?
 
 5th ok shot down first mountain, but having trouble updating tallestMountain. it stays stuck on case1: i=0 mountainH=9 even after its destroyed.
 
+6th change location of declaring the target inside the if loop or after, changed the reset location of tallestMountain
+7th all cases past.
+8th cleaning it up and adding comments
 
 **/
