@@ -34,6 +34,18 @@ N = +1 Y
 **/
 
 // game loop
+/**
+ * border moves
+0,0			31,0 max coordinates recorded in test cases
+0 ------------> +x	E
+|      /\ N =-y
+|  <W=-x     E=+x > 
+|      \/ S =+y
+|
+\/+y S
+0,17			31,17
+ */
+
 while (true) {
     const remainingTurns = parseInt(readline()); // The remaining amount of turns Thor can move. Do not remove this line. =Energy
 
@@ -41,14 +53,13 @@ while (true) {
     const testE = ((lightX > ThorX) && ThorX <= 37);
     const testW = ((lightX < ThorX) && ThorX >0);
     const testS = ((lightY > ThorY) && ThorY <= 10);
-    const testSs = (ThorY <= 10);
     const testN = ((lightY < ThorY) && ThorY >= 0);
      if (remainingTurns > 0) {
         if  (testE)                        {ThorX++; MoveX="E";}
             else if  (testW)               {ThorX--; MoveX="W";}
      
-        if (testS)                         {ThorY -= 1; MoveY="S";}
-            else if (testN)                {ThorY += 1; MoveY="N";}
+        if (testS)                         {ThorY += 1; MoveY="S";} //here is the problem of different value from ThorY and Output's Y this should be +y for S and -y for N
+            else if (testN)                {ThorY -= 1; MoveY="N";}
      }
      console.log(MoveY+MoveX);
 
@@ -56,7 +67,7 @@ while (true) {
     // To debug: console.error('Debug messages...');
     // A single line providing the move to be made: N NE E SE S SW W or NW
     console.error( `Thor's Position: (X:${ThorX}, Y:${ThorY})` +" Direction: " + MoveY+MoveX+ " Energy:" + remainingTurns)
-    console.error("Conditionals: E/+X?:" + testE +" W/-X?:"+ testW + " S/-Y?:" + testS+ "SLimit:" + testSs + " N/+Y?:" + testN);
+    console.error("Conditionals: E/+X?:" + testE +" W/-X?:"+ testW + " S/+Y?:" + testS+ "SLimit:" + testSs + " N/-Y?:" + testN);
     console.error(`Inputs: (initialTx: ${initialTx}, initialTy: ${initialTy}), Light: (lightX ${lightX}, lightY ${lightY})`);
     console.error(`Raw input: ${inputs}`);
 }
@@ -85,6 +96,7 @@ Case3 Thor position =     (31,4).
 Thor's Position: (X:17, Y:-10) Direction: SW Energy:31
 Conditionals: E/+X?:false W/-X?:true S/-Y?:trueSLimit:true N/+Y?:false
 
+
 Standard Output Stream:
 SW
 Game information:
@@ -103,10 +115,8 @@ Case4 Fail point -> Thor position = (18,18). Direction SE Tests: E:True W:False 
 */
 
 
+
 /**  Thinking about the problem again
-
-
-
 Constraints
 0 ≤ lightX < 40
 0 ≤ lightY < 18
@@ -135,3 +145,45 @@ else if thorY = lightY -> 0
 
 console.log ( Y+X ) //NE
 */
+
+
+
+/** Tracking down the problem with the data we have
+!----> 	Case1 	My ThorXY 	31,4
+		 Y OUTPUT's XY= 31,4
+		no difference why does case 1 have no difference? it goes E which should add ThorX++ it appears X is fine but Y is not
+!----> 	Case2	My ThorXY 	31,30
+		 Y OUTPUT's XY= 31,4
+		a difference of 26  ?Where is this coming from? Thor Went N so ThorY-- Energy 13-0= 13 Steps Taken
+
+!----> Case3	My ThorX Y 	17,-10
+		OUTPUT's XY 	17,18
+		Delta Difference 28	Direction:SW so ThorX-- ThorY-- starting energy of 48 end of 31 48-31= 17steps taken
+=> Conclusion look in the modification of Y in the Conditional statements
+=>Found it on line 62 they were swapped 
+        if (testS)                         {ThorY -= 1; MoveY="S";} 
+//on line62 is the problem of different value from ThorY and Output's Y this should be +y for S and -y for N
+
+**/
+/**
+!----> Case 2 after setting S to +y and N to -y
+Standard Error Stream:
+Thor's Position: (X:31, Y:4) Direction: N Energy:1
+Conditionals: E/+X?:false W/-X?:false S/-Y?:falseSLimit:true N/+Y?:true
+Standard Output Stream:
+Thor position = (31,4)
+
+                My ThorX     31,4 
+                output's     31,4 
+                >Problem corrected
+
+!----> What about Case3?
+Standard Error Stream: Thor's Position: (X:0, Y:11) Direction:  Energy:13
+Conditionals: E/+X?:false W/-X?:false S/-Y?:falseSLimit:false N/+Y?:false
+Standard Output Stream:
+Game information:
+Expected a movement (one of N, NE, E, SE, S, SW, W, NW) but found ''
+Thor position = (0,11). Light position = (0,17). Energy = 13
+>Thor's position is the same in Error and in output so that works. He redirects so that's good too. Now we have a new problem.
+
+**/
